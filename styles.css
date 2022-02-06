@@ -11,12 +11,6 @@ body {
     justify-content: space-between;
 }
 
-.library, .navbar, .footer {
-    display: flex;
-    align-content: flex-start;
-    justify-content: center;  
-}
-
 .navbar, .footer {
     background: black;
     color: white;
@@ -39,7 +33,9 @@ body {
 }
 
 .library {
-    background: purple;
+    display: flex;
+    align-content: flex-start;
+    background: grey;
     gap: 15px;
     padding: 30px;
     flex-wrap: wrap;
@@ -49,7 +45,7 @@ body {
 }
 
 .book {
-    background: thistle;
+    background: white;
     border-style: solid;
     flex: 0 1 0;
     flex-direction: column;
@@ -60,9 +56,19 @@ body {
     padding: 15px;
 }
 
-.title, .author, .pages, .read {
+.new {
+
+}
+
+.title, .author, .pages, .read, .book {
     border-style: solid;
     border-width: 1px;
     text-align: center;
     padding: 20px;
+}
+
+.navbar, .footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;  
 }
