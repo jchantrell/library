@@ -11,9 +11,18 @@ body {
     justify-content: space-between;
 }
 
+input:focus::placeholder {
+    color: transparent;
+  }
+
+a:hover, a:visited, a:link, a:active {
+    text-decoration: none !important;
+    color: #e3cdb3;
+}
+
 .navbar, .footer {
-    background: black;
-    color: white;
+    background: #291b0a;
+    color: #e3cdb3;
     height: 100px;
     flex-shrink: 0;
 }
@@ -21,10 +30,12 @@ body {
 .navbar {
     margin-bottom: auto;
     width: 100%;
+    font-size: 30px;
 }
 
 .footer {
     margin-top: auto;
+    font-size: 20px;
 }
 
 .content {
@@ -35,7 +46,7 @@ body {
 .library {
     display: flex;
     align-content: flex-start;
-    background: grey;
+    background: #8e7b6b;
     gap: 15px;
     padding: 30px;
     flex-wrap: wrap;
@@ -45,7 +56,8 @@ body {
 }
 
 .book {
-    background: white;
+    background: #291b0a;
+    color: #e3cdb3;
     border-style: solid;
     flex: 0 1 0;
     flex-direction: column;
@@ -56,15 +68,13 @@ body {
     padding: 15px;
 }
 
-.new {
-
-}
 
 .title, .author, .pages, .read, .book {
     border-style: solid;
     border-width: 1px;
     text-align: center;
     padding: 20px;
+    font-size: 20px;
 }
 
 .navbar, .footer {
@@ -72,3 +82,72 @@ body {
     align-items: center;
     justify-content: center;  
 }
+
+.new {
+    font-size: 72px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none; 
+    -moz-user-select: none; 
+    -ms-user-select: none; 
+    user-select: none; 
+}
+
+.button {
+    cursor: pointer;
+}
+
+.switch {
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    border-radius: 34px;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    border-radius: 50%;
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
