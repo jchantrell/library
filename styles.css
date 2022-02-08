@@ -11,8 +11,12 @@ body {
     justify-content: space-between;
 }
 
+input{
+  background: #e3cdb3;
+}
+
 input:focus::placeholder {
-    color: transparent;
+  color: transparent;
   }
 
 a:hover, a:visited, a:link, a:active {
@@ -56,6 +60,7 @@ a:hover, a:visited, a:link, a:active {
 }
 
 .book {
+    position: relative;
     background: #291b0a;
     color: #e3cdb3;
     border-style: solid;
@@ -69,12 +74,17 @@ a:hover, a:visited, a:link, a:active {
 }
 
 
-.title, .author, .pages, .read, .book {
+.title, .author, .pages, .book {
     border-style: solid;
     border-width: 1px;
     text-align: center;
     padding: 20px;
     font-size: 20px;
+}
+
+.readText {
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .navbar, .footer {
@@ -83,8 +93,7 @@ a:hover, a:visited, a:link, a:active {
     justify-content: center;  
 }
 
-.new {
-    font-size: 72px;
+.new, .button {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none; 
@@ -93,9 +102,14 @@ a:hover, a:visited, a:link, a:active {
     user-select: none; 
 }
 
-.button {
+.new {
+  font-size: 72px;
+}
+
+.button, .add {
     cursor: pointer;
 }
+
 
 .switch {
     text-align: center;
@@ -104,50 +118,64 @@ a:hover, a:visited, a:link, a:active {
     width: 60px;
     height: 34px;
   }
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  border-radius: 34px;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
   
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  .slider {
-    border-radius: 34px;
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  .slider:before {
-    border-radius: 50%;
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #2196F3;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-  
+.slider:before {
+  border-radius: 50%;
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #e3cdb3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #e3cdb3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+.remove, .submit {
+	position: absolute;
+  top: -9px;
+  right: -9px;
+	width: 23px;
+	height: 23px;
+	border: 2px solid #e3cdb3;
+	background-color: #291b0a;
+	border-radius: 50%;
+  color: #e3cdb3;
+	}
+
+.remove:hover, .submit:hover { cursor: pointer; }
+.remove:hover::before, .remove:hover::after, .submit:hover::before, .submit:hover::after { display: block; }
