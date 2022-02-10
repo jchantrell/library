@@ -1,10 +1,10 @@
 document.body.addEventListener('click', function(event){
   if(event.target.classList.contains('add')) {
-    addBookForm(event);
+    createBook(event);
   };
   if(event.target.classList.contains('remove')) {
     removeBook(event);
-  }; 
+  };
 });
 
 
@@ -18,7 +18,7 @@ function Book(id, title, author, pages, read) {
   this.read = read;
 }
 
-function addBookForm(event) {
+function createBook(event) {
   const selected = event.target.parentNode;
   const library = document.querySelector('.library');
   const bookID = document.createElement('div');
@@ -32,7 +32,9 @@ function addBookForm(event) {
   const pagesInput = document.createElement('input');
   const read = document.createElement('div');
   const readText = document.createElement('div');
-  const readCheckbox = document.createElement('input');
+  const switchLabel = document.createElement('label');
+  const switchInput = document.createElement('input');
+  const switchContainer = document.createElement('span')
   const newBook = document.createElement('div');
   const newBookButton = document.createElement('div');
 
@@ -58,8 +60,14 @@ function addBookForm(event) {
   read.appendChild(readText)
   readText.classList.add('readText')
   readText.textContent = 'Read yet?'
-  read.appendChild(readCheckbox)
-  readCheckbox.type = 'checkbox'
+  
+  read.appendChild(switchLabel)
+  switchLabel.classList.add('switch')
+  switchLabel.appendChild(switchInput)
+  switchInput.type = 'checkbox'
+  switchLabel.appendChild(switchContainer)
+  switchContainer.classList.add('slider')
+
 
   function submitBook(){
     document.querySelectorAll('.submit').forEach(button => {
@@ -68,16 +76,16 @@ function addBookForm(event) {
         let bookTitle = titleInput.value;
         let bookAuthor = authorInput.value;
         let bookPages = pagesInput.value;
-        if (readCheckbox.checked == true){
+        if (switchInput.checked == true){
           bookRead = true;
         }
-        if (readCheckbox.checked != true){
+        if (switchInput.checked != true){
           bookRead = false;
         }
 
         let newEntry = new Book(id, bookTitle, bookAuthor, bookPages, bookRead);
         Library.push(newEntry);
-        console.log(`Added ${bookTitle} to the library.`)
+        console.log(`Added ${bookTitle} to the library. ID - ${id}`)
 
         submitButton.remove()
         selected.appendChild(bookID)
@@ -117,13 +125,8 @@ function removeBook(event){
   const selected = event.target.parentNode;
   const title = selected.querySelector('.title').textContent;
   const id = selected.querySelector('[data-id]').getAttribute('data-id')
-  console.log(id)
-  index = Library.indexOf()
+  book = Library.find(b => b.id == id)
+  book = null;
   selected.remove();
-  console.log(`Removed ${title} from the library.`);
-};
-
-function updateBookID(){
-  // on removal of a book from array, update the associated data attribute of every book object to reflect its position in the array
-
+  console.log(`Removed ${title} from the library. ID - ${id}`);
 };
