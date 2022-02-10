@@ -11,22 +11,19 @@ body {
     justify-content: space-between;
 }
 
-input{
-  background: #e3cdb3;
+input.title, input.author, input.pages, textarea {
+  background-color : #eee;
+  color: #444444;
 }
-
-input:focus::placeholder {
-  color: transparent;
-  }
 
 a:hover, a:visited, a:link, a:active {
     text-decoration: none !important;
-    color: #e3cdb3;
+    color: #444444;
 }
 
 .navbar, .footer {
-    background: #291b0a;
-    color: #e3cdb3;
+    background: #FCFCFC;
+    color: #444444;
     height: 100px;
     flex-shrink: 0;
 }
@@ -35,11 +32,13 @@ a:hover, a:visited, a:link, a:active {
     margin-bottom: auto;
     width: 100%;
     font-size: 30px;
+    border-bottom: 2px solid;
 }
 
 .footer {
     margin-top: auto;
     font-size: 20px;
+    border-top: 2px solid;
 }
 
 .content {
@@ -50,7 +49,7 @@ a:hover, a:visited, a:link, a:active {
 .library {
     display: flex;
     align-content: flex-start;
-    background: #8e7b6b;
+    background: #E0E0E0;
     gap: 15px;
     padding: 30px;
     flex-wrap: wrap;
@@ -61,8 +60,8 @@ a:hover, a:visited, a:link, a:active {
 
 .book {
     position: relative;
-    background: #291b0a;
-    color: #e3cdb3;
+    background: #757575;
+    color: #fcfcfc;
     border-style: solid;
     flex: 0 1 0;
     flex-direction: column;
@@ -73,7 +72,6 @@ a:hover, a:visited, a:link, a:active {
     padding: 15px;
 }
 
-
 .title, .author, .pages, .book {
     border-style: solid;
     border-width: 1px;
@@ -81,6 +79,10 @@ a:hover, a:visited, a:link, a:active {
     padding: 20px;
     font-size: 22px;
     font-weight: 600;
+}
+
+.hasBeenRead {
+    background: #424242;
 }
 
 .readText {
@@ -107,21 +109,105 @@ a:hover, a:visited, a:link, a:active {
   font-size: 72px;
 }
 
+/* submit and remove buttons */
+
 .button, .add {
     cursor: pointer;
 }
 
 .remove, .submit {
 	position: absolute;
-  top: -9px;
-  right: -9px;
+    top: -9px;
+    right: -9px;
 	width: 23px;
 	height: 23px;
-	border: 2px solid #e3cdb3;
-	background-color: #291b0a;
+	border: 2px solid white;
+	background-color: #53d769;
 	border-radius: 50%;
-  color: #e3cdb3;
-	}
+    color: #FCFCFC;
+}
+
+.remove {
+    background-color: darkred;
+}
 
 .remove:hover, .submit:hover { cursor: pointer; }
 .remove:hover::before, .remove:hover::after, .submit:hover::before, .submit:hover::after { display: block; }
+
+
+/* read switch */
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 150px;
+    height: 40px;
+}
+  
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+  
+.slider {
+    border-radius: 34px;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+  
+.slider:before {
+    border-radius: 50%;
+    position: absolute;
+    content: "";
+    height: 30px;
+    width: 30px;
+    left: 8px;
+    bottom: 5px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+  
+input:checked + .slider {
+    background-color: #53d769;
+}
+  
+input:focus + .slider {
+    box-shadow: 0 0 1px #53d769;
+}
+  
+input:checked + .slider:before {
+    -webkit-transform: translateX(105px);
+    -ms-transform: translateX(105px);
+    transform: translateX(105px);
+}
+
+.slider:active:after, .switch:active:after {
+    width: 360px;
+ }
+
+/* dark mode */
+
+.darkmode-bg1 {
+    background: #121212;
+}
+
+.darkmode-bg2 {
+    background: #282828;
+}
+
+.darkmode-bg3 {
+    background: #838383;
+}
+
+.darkmode-text {
+    color: #fcfcfc;
+}
