@@ -1,3 +1,21 @@
+document.addEventListener('DOMContentLoaded', function() {
+  reloadBooks()
+  createNewBookTile()
+}, false);
+
+function reloadBooks(){
+  books = JSON.parse(localStorage.getItem("Library"))
+  if (books == null){
+    createNewBookTile
+  }
+  if (books != null){
+    books.forEach(function(book){
+      recreateBook(book)
+    })
+  }
+
+}
+
 document.body.addEventListener('click', function(event){
   if(event.target.classList.contains('add')) {
     createBook(event);
@@ -10,8 +28,7 @@ document.body.addEventListener('click', function(event){
   };
 });
 
-
-let Library = [];
+Library = []
 
 function Book(id, title, author, description, read) {
   this.id = id;
@@ -21,9 +38,58 @@ function Book(id, title, author, description, read) {
   this.read = read;
 }
 
+function recreateBook(book){
+  console.log(`${book.id}, ${book.title}, ${book.author}, ${book.description}, ${book.read}`)
+
+  const library = document.querySelector('.library');
+  const bookID = document.createElement('div');
+  const removeButton = document.createElement('div');
+  const title = document.createElement('div');
+  const author = document.createElement('div');
+  const description = document.createElement('div');
+  const read = document.createElement('div');
+  const switchLabel = document.createElement('label');
+  const switchInput = document.createElement('input');
+  const switchContainer = document.createElement('span')
+  const newBook = document.createElement('div');
+
+  library.appendChild(newBook)
+  newBook.classList.add('book');
+  newBook.appendChild(bookID)
+  bookID.dataset.id = book.id
+  newBook.appendChild(removeButton)
+  removeButton.classList.add('button', 'remove')
+  newBook.appendChild(title)
+  title.classList.add('title')
+  title.textContent = book.title
+  newBook.appendChild(author)
+  author.classList.add('author')
+  author.textContent = book.author
+  newBook.appendChild(description)
+  description.classList.add('description')
+  description.textContent = book.description
+  newBook.appendChild(read)
+  read.appendChild(switchLabel)
+  switchLabel.classList.add('switch')
+  switchLabel.appendChild(switchInput)
+  switchInput.type = 'checkbox'
+  switchLabel.appendChild(switchContainer)
+  switchContainer.classList.add('slider')
+
+  if(book.read == true){
+    switchInput.checked = true;
+    newBook.classList.add('hasBeenRead')
+  }
+  else {
+    newBook.classList.add('hasNotBeenRead')
+  }
+
+  Library.push(book)
+}
+
+
 function createBook(event) {
   const selected = event.target.parentNode;
-  const library = document.querySelector('.library');
   const bookID = document.createElement('div');
   const submitButton = document.createElement('div');
   const removeButton = document.createElement('div');
@@ -38,8 +104,7 @@ function createBook(event) {
   const switchLabel = document.createElement('label');
   const switchInput = document.createElement('input');
   const switchContainer = document.createElement('span')
-  const newBook = document.createElement('div');
-  const newBookButton = document.createElement('div');
+
 
   // clear tile
   selected.classList.remove('new')
@@ -74,7 +139,12 @@ function createBook(event) {
   function submitBook(){
     document.querySelectorAll('.submit').forEach(button => {
       button.addEventListener('click', function(){
-        let id = Library.length + 1;
+        if (Library.length === 0){
+          id = 0;
+        }
+        else {
+          id = Library.length;
+       }
         let bookTitle = titleInput.value;
         let bookAuthor = authorInput.value;
         let bookDescription = descriptionInput.value;
@@ -88,10 +158,18 @@ function createBook(event) {
         }
 
         let newEntry = new Book(id, bookTitle, bookAuthor, bookDescription, bookRead);
-        Library.push(newEntry);
-        console.log(`Added ${bookTitle} to the library. ID - ${id}`)
+        pushToLibrary(newEntry)
+        localStorage.setItem("Library", JSON.stringify(Library));
 
         submitButton.remove()
+        selected.appendChild(removeButton)
+        removeButton.classList.add('button', 'remove')
+        if (switchInput.checked == true){
+          removeButton.classList.add('hasBeenRead')
+        }
+        if (switchInput.checked == false){
+          removeButton.classList.add('hasNotBeenRead')
+        }
         selected.appendChild(bookID)
         bookID.dataset.id = id;
         titleInput.remove()
@@ -110,11 +188,7 @@ function createBook(event) {
         selected.appendChild(read)
         readText.textContent = ''
 
-        newBook.classList.add('new', 'book');
-        newBookButton.classList.add('add');
-        library.appendChild(newBook);
-        newBook.appendChild(newBookButton);
-        newBookButton.textContent = '+'; 
+        createNewBookTile();
 
       })
     })
@@ -123,21 +197,50 @@ function createBook(event) {
   submitBook();
 }
 
+function createNewBookTile(){
+  const newBook = document.createElement('div');
+  const newBookButton = document.createElement('div');
+  const library = document.querySelector('.library');
+
+  newBook.classList.add('new', 'book');
+  newBookButton.classList.add('add');
+  library.appendChild(newBook);
+  newBook.appendChild(newBookButton);
+  newBookButton.textContent = '+'; 
+}
+
+function pushToLibrary(book){
+  Library.push(book)
+  updateLibrary()
+}
+
+function updateBookId(){
+  
+}
+
+function updateLibrary(){
+  Library.forEach(function(book){
+    index = Library.indexOf(book)
+    book.id = index;
+  })
+
+}
+
 function removeBook(event){
   const selected = event.target.parentNode;
-  const title = selected.querySelector('.title').textContent;
   const id = selected.querySelector('[data-id]').getAttribute('data-id')
-  book = Library.find(b => b.id == id)
-  book = null;
+  book = Library.find(book => book.id == id)
+  Library.splice(book, 1)
+  updateLibrary()
+  updateStorage()
   selected.remove();
-  console.log(`Removed ${title} from the library. ID - ${id}`);
 };
 
 function toggleReadStatus(event){
   const label = event.target.parentNode;
   const container = label.parentNode;
   const book = container.parentNode;
-  const button = book.querySelectorAll('.submit')
+  const button = book.querySelectorAll('.button')
   const checkbox = label.querySelector('input')
 
   if (checkbox.checked == true){
@@ -146,6 +249,7 @@ function toggleReadStatus(event){
     button.forEach(function(button) {
       button.classList.add('hasNotBeenRead')
       button.classList.remove('hasBeenRead')
+      updateStorage()
     }) 
   }
 
@@ -155,7 +259,16 @@ function toggleReadStatus(event){
     button.forEach(function(button) {
       button.classList.add('hasBeenRead')
       button.classList.remove('hasNotBeenRead')
+      updateStorage()
     })
   }
 
+}
+
+function clearStorage(){
+  localStorage.clear()
+}
+
+function updateStorage(){
+  localStorage.setItem("Library", JSON.stringify(Library));
 }
