@@ -127,13 +127,17 @@ a:hover, a:visited, a:link, a:active {
 	width: 23px;
 	height: 23px;
 	border: 2px solid #CCC;
-	background-color: #66fcf1;
+	background-color: #66d3cb;
 	border-radius: 50%;
     color: #FCFCFC;
 }
 
 .remove {
-    background-color: darkred;
+    background-color: #F44949;
+}
+
+.container:hover + .change {
+    display: block;
 }
 
 .remove:hover, .submit:hover { cursor: pointer; }
