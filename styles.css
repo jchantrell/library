@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 html, body{
     box-sizing: border-box;
+    font-family: Roboto;
 }
 
 body {
@@ -11,19 +14,19 @@ body {
     justify-content: space-between;
 }
 
-input.title, input.author, input.pages, textarea {
+input.title, input.author, input.description, textarea {
   background-color : #eee;
   color: #444444;
 }
 
 a:hover, a:visited, a:link, a:active {
     text-decoration: none !important;
-    color: #444444;
+    color: #FCFCFC;
 }
 
 .navbar, .footer {
-    background: #FCFCFC;
-    color: #444444;
+    background: #222629;
+    color: #FCFCFC;
     height: 100px;
     flex-shrink: 0;
 }
@@ -32,13 +35,11 @@ a:hover, a:visited, a:link, a:active {
     margin-bottom: auto;
     width: 100%;
     font-size: 30px;
-    border-bottom: 2px solid;
 }
 
 .footer {
     margin-top: auto;
     font-size: 20px;
-    border-top: 2px solid;
 }
 
 .content {
@@ -49,7 +50,7 @@ a:hover, a:visited, a:link, a:active {
 .library {
     display: flex;
     align-content: flex-start;
-    background: #E0E0E0;
+    background: #474B4F;
     gap: 15px;
     padding: 30px;
     flex-wrap: wrap;
@@ -59,9 +60,11 @@ a:hover, a:visited, a:link, a:active {
 }
 
 .book {
+    border-radius: 5%;
     position: relative;
-    background: #757575;
-    color: #fcfcfc;
+    background: #222629;
+    color: #FCFCFC;
+    border: solid 3px #ccc;
     border-style: solid;
     flex: 0 1 0;
     flex-direction: column;
@@ -70,20 +73,22 @@ a:hover, a:visited, a:link, a:active {
     min-height: 400px;
     min-width: 300px;
     padding: 15px;
+    text-align: center;
+    font-size: 22px;
 }
 
-.title, .author, .pages, .book {
-    border-style: solid;
-    border-width: 1px;
+.title, .author, .description {
+    border: solid 1px #282828;
     text-align: center;
     padding: 20px;
     font-size: 22px;
     font-weight: 600;
 }
 
-.hasBeenRead {
-    background: #424242;
-}
+.title, .author, .description {
+    background: #474B4F;
+    border-radius: 15px;
+} 
 
 .readText {
   margin-top: 30px;
@@ -121,8 +126,8 @@ a:hover, a:visited, a:link, a:active {
     right: -9px;
 	width: 23px;
 	height: 23px;
-	border: 2px solid white;
-	background-color: #53d769;
+	border: 2px solid #CCC;
+	background-color: #66fcf1;
 	border-radius: 50%;
     color: #FCFCFC;
 }
@@ -177,11 +182,11 @@ a:hover, a:visited, a:link, a:active {
 }
   
 input:checked + .slider {
-    background-color: #53d769;
+    background-color: #45A29E;
 }
   
 input:focus + .slider {
-    box-shadow: 0 0 1px #53d769;
+    box-shadow: 0 0 1px #45A29E;
 }
   
 input:checked + .slider:before {
@@ -194,20 +199,10 @@ input:checked + .slider:before {
     width: 360px;
  }
 
-/* dark mode */
-
-.darkmode-bg1 {
-    background: #121212;
+ .hasBeenRead {
+    border-color: #45A29E;
 }
 
-.darkmode-bg2 {
-    background: #282828;
-}
-
-.darkmode-bg3 {
-    background: #838383;
-}
-
-.darkmode-text {
-    color: #fcfcfc;
+.hasNotBeenRead {
+    border-color: #CCC;
 }
