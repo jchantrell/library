@@ -5,16 +5,19 @@ document.body.addEventListener('click', function(event){
   if(event.target.classList.contains('remove')) {
     removeBook(event);
   };
+  if(event.target.classList.contains('slider')) {
+    toggleReadStatus(event);
+  };
 });
 
 
 let Library = [];
 
-function Book(id, title, author, pages, read) {
+function Book(id, title, author, description, read) {
   this.id = id;
   this.title = title;
   this.author = author;
-  this.pages = pages;
+  this.description = description;
   this.read = read;
 }
 
@@ -28,8 +31,8 @@ function createBook(event) {
   const titleInput = document.createElement('input');
   const author = document.createElement('div');
   const authorInput = document.createElement('input');
-  const pages = document.createElement('div');
-  const pagesInput = document.createElement('input');
+  const description = document.createElement('div');
+  const descriptionInput = document.createElement('input');
   const read = document.createElement('div');
   const readText = document.createElement('div');
   const switchLabel = document.createElement('label');
@@ -45,16 +48,15 @@ function createBook(event) {
   // populate tile with form info 
   selected.appendChild(submitButton)
   submitButton.classList.add('button', 'submit')
-  submitButton.textContent = '✔'
   selected.appendChild(titleInput)
   titleInput.classList.add('title')
   titleInput.placeholder = 'Title'
   selected.appendChild(authorInput)
   authorInput.classList.add('author')
   authorInput.placeholder = 'Author'
-  selected.appendChild(pagesInput)
-  pagesInput.classList.add('pages')
-  pagesInput.placeholder = 'Pages'
+  selected.appendChild(descriptionInput)
+  descriptionInput.classList.add('description')
+  descriptionInput.placeholder = 'Description'
   selected.appendChild(read)
   read.classList.add('read')
   read.appendChild(readText)
@@ -75,24 +77,23 @@ function createBook(event) {
         let id = Library.length + 1;
         let bookTitle = titleInput.value;
         let bookAuthor = authorInput.value;
-        let bookPages = pagesInput.value;
+        let bookDescription = descriptionInput.value;
         if (switchInput.checked == true){
           bookRead = true;
+          selected.classList.add('hasBeenRead')
         }
         if (switchInput.checked != true){
           bookRead = false;
+          selected.classList.add('hasNotBeenRead')
         }
 
-        let newEntry = new Book(id, bookTitle, bookAuthor, bookPages, bookRead);
+        let newEntry = new Book(id, bookTitle, bookAuthor, bookDescription, bookRead);
         Library.push(newEntry);
         console.log(`Added ${bookTitle} to the library. ID - ${id}`)
 
         submitButton.remove()
         selected.appendChild(bookID)
         bookID.dataset.id = id;
-        selected.appendChild(removeButton)
-        removeButton.classList.add('button', 'remove')
-        removeButton.textContent = '✕'
         titleInput.remove()
         selected.appendChild(title)
         title.classList.add('title')
@@ -101,12 +102,13 @@ function createBook(event) {
         selected.appendChild(author)
         author.classList.add('author')
         author.textContent = bookAuthor
-        pagesInput.remove()
-        selected.appendChild(pages)
-        pages.classList.add('pages')
-        pages.textContent = bookPages
+        descriptionInput.remove()
+        selected.appendChild(description)
+        description.classList.add('description')
+        description.textContent = bookDescription
         read.remove()
         selected.appendChild(read)
+        readText.textContent = ''
 
         newBook.classList.add('new', 'book');
         newBookButton.classList.add('add');
@@ -130,3 +132,30 @@ function removeBook(event){
   selected.remove();
   console.log(`Removed ${title} from the library. ID - ${id}`);
 };
+
+function toggleReadStatus(event){
+  const label = event.target.parentNode;
+  const container = label.parentNode;
+  const book = container.parentNode;
+  const button = book.querySelectorAll('.submit')
+  const checkbox = label.querySelector('input')
+
+  if (checkbox.checked == true){
+    book.classList.add('hasNotBeenRead')
+    book.classList.remove('hasBeenRead')
+    button.forEach(function(button) {
+      button.classList.add('hasNotBeenRead')
+      button.classList.remove('hasBeenRead')
+    }) 
+  }
+
+  if (checkbox.checked == false){
+    book.classList.add('hasBeenRead')
+    book.classList.remove('hasNotBeenRead')
+    button.forEach(function(button) {
+      button.classList.add('hasBeenRead')
+      button.classList.remove('hasNotBeenRead')
+    })
+  }
+
+}
