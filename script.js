@@ -211,14 +211,10 @@ function createNewBookTile(){
 
 function pushToLibrary(book){
   Library.push(book)
-  updateLibrary()
+  updateId()
 }
 
-function updateBookId(){
-  
-}
-
-function updateLibrary(){
+function updateId(){
   Library.forEach(function(book){
     index = Library.indexOf(book)
     book.id = index;
@@ -231,7 +227,7 @@ function removeBook(event){
   const id = selected.querySelector('[data-id]').getAttribute('data-id')
   book = Library.find(book => book.id == id)
   Library.splice(book, 1)
-  updateLibrary()
+  updateId()
   updateStorage()
   selected.remove();
 };
@@ -240,6 +236,7 @@ function toggleReadStatus(event){
   const label = event.target.parentNode;
   const container = label.parentNode;
   const book = container.parentNode;
+  const id = book.querySelector('[data-id]').getAttribute('data-id')
   const button = book.querySelectorAll('.button')
   const checkbox = label.querySelector('input')
 
@@ -249,6 +246,8 @@ function toggleReadStatus(event){
     button.forEach(function(button) {
       button.classList.add('hasNotBeenRead')
       button.classList.remove('hasBeenRead')
+      bookObj = Library.find(book => book.id == id)
+      bookObj.read = false;
       updateStorage()
     }) 
   }
@@ -259,6 +258,8 @@ function toggleReadStatus(event){
     button.forEach(function(button) {
       button.classList.add('hasBeenRead')
       button.classList.remove('hasNotBeenRead')
+      bookObj = Library.find(book => book.id == id)
+      bookObj.read = true;
       updateStorage()
     })
   }
